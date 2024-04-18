@@ -13,7 +13,7 @@ function AdminOrderList() {
     totalPages: 1,
     pageSize: 10 // You can adjust the page size as needed
   });
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
 
   const fetchOrders = (page = 1) => {
     axios.get(`${baseURL}/adminapp/orders/`, {
