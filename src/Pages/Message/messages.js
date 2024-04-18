@@ -27,7 +27,7 @@ function Messages() {
     useEffect(() => {
         if (orderId) {
             console.log(orderId);
-            const wsURL = `ws://127.0.0.1:8000/ws/socket-server/${orderId}/`;
+            const wsURL = `ws://skillbridge.store/ws/socket-server/${orderId}/`;
             connectToWebSocket(wsURL);
             return () => {
                 client && client.close();
