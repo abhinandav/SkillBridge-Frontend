@@ -15,7 +15,12 @@ function AdminCourseRequests() {
   const [rcourses, setRCourses] = useState([]);
 
   const fetchCourse = (url) => {
-    axios.get(url)
+    axios.get(url,{
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+    }})
       .then((response) => {
         console.log('API response:', response.data);
         if (response.data) {
