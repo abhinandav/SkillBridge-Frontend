@@ -7,7 +7,7 @@ import msgimg from '../../Images/msg1.jpg'
 
 
 function Messages() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const userid = localStorage.getItem('userid');
 

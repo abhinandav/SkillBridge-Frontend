@@ -11,7 +11,7 @@ import placeholderprofile from '../../../Images/default/placeholderprofile.webp'
 
 
 function TeacherVideoPlayer() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const userid = localStorage.getItem('userid');
     const authentication_user=useSelector(state=>(state.authentication_user))

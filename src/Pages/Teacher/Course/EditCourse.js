@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaEdit } from 'react-icons/fa';
 
 function EditCourse() {
-    const baseURL='http://127.0.0.1:8000'
+    const baseURL='https://skillbridge.store'
     const token = localStorage.getItem('access');
     const [nameError,setNameError]=useState('')
     const [descError,setDescError]=useState('')

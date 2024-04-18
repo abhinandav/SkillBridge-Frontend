@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CourseSearch from './Searchbar';
 
 const CourseList = () => {
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true); 

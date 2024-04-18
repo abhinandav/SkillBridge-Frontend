@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProfileEdit = () => {
-    const baseUrl = 'http://127.0.0.1:8000';
+    const baseUrl = 'https://skillbridge.store';
     const token = localStorage.getItem('access');
     const dispatch = useDispatch();
     const authentication_user = useSelector(state => state.authentication_user);

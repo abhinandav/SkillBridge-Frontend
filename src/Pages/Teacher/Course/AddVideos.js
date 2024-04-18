@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function AddVideos() {
-  const baseURL='http://127.0.0.1:8000';
+  const baseURL='https://skillbridge.store';
   const { id } = useParams();
   const navigate = useNavigate();
   const [nameError,setNameError]=useState('')

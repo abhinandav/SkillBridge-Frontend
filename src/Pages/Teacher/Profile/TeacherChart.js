@@ -6,7 +6,7 @@ function AdminChart({props}) {
     const chartRef = useRef(null);
     const [orderdata, setOrderdata] = useState({orders:[]});
     const token = localStorage.getItem('access');
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
 
     const [chartData, setChartData] = useState({
         labels: [],
