@@ -52,7 +52,7 @@ console.log('invoice',invoice);
     return (<>
     {invoice && (
         <div id='invoiceDiv' className="flex flex-col w-full items-center justify-center bg-gray-200">
-            <div className=" rounded bg-gray-50 mt-5 px-6 pt-8 shadow-lg">
+            <div style={{width:500}} className=" rounded bg-gray-50 mt-5 px-6 pt-8 shadow-lg">
             <span className='text-3xl text-blue-500 font-semibold flex justify-center mb-2 underline'>INVOICE</span>
                 <img src={logo} alt="chippz" className="mx-auto w-16 py-4" />
                 <div className="flex flex-col justify-center items-center gap-2">
