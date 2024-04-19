@@ -2,6 +2,7 @@ import React from 'react';
 import { set_authentication } from '../../Redux/autehnticationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 
 const AdminHeader = () => {
@@ -25,7 +26,7 @@ const AdminHeader = () => {
 
 
 
-  const basUrl='http://127.0.0.1:8000'
+  const basUrl='https://skillbridge.store'
   const refreshToken = localStorage.getItem('refresh');
 
   const logout = () => {

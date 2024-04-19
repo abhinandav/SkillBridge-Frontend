@@ -8,7 +8,7 @@ const UserHeader = () => {
 
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  const basUrl='http://127.0.0.1:8000'
+  const basUrl='https://skillbridge.store'
   const refreshToken = localStorage.getItem('refresh');
   
 
