@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { set_authentication } from '../../Redux/autehnticationSlice';
+import axios from 'axios';
 
 const TeacherHeader = () => {
 
@@ -11,18 +12,46 @@ const TeacherHeader = () => {
   const authentication_user=useSelector(state=>state.authentication_user)
   console.log('hhhhh',authentication_user.isTeacher);
 
-  const logout=()=>{
-    localStorage.clear()
-    dispatch(
-      set_authentication({
-        name:null,
-        isAuthenticated:null,
-        isAdmin:false,
-        isTeacher:false
+  // const logout=()=>{
+  //   localStorage.clear()
+  //   dispatch(
+  //     set_authentication({
+  //       name:null,
+  //       isAuthenticated:null,
+  //       isAdmin:false,
+  //       isTeacher:false
+  //     })
+  //   )
+  //   navigate('/teacher')
+  // }
+
+
+  const basUrl='http://127.0.0.1:8000'
+  const refreshToken = localStorage.getItem('refresh');
+
+  const logout = () => {
+    axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }})
+      .then(response => {
+        dispatch(set_authentication({
+          name: null,
+          isAuthenticated: false, 
+          isAdmin: false,
+        }));
+        localStorage.removeItem('atoken');
+        localStorage.removeItem('rtoken');
+        navigate('/teacher')
       })
-    )
-    navigate('/teacher')
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
   }
+
+
 
 
   // navbar toggle

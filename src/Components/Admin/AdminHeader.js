@@ -11,16 +11,43 @@ const AdminHeader = () => {
   const navigate =useNavigate()
 
 
-  const logout=()=>{
-    localStorage.clear()
-    dispatch(
-      set_authentication({
-        name:null,
-        isAuthenticated:null,
-        isAdmin:false,
+  // const logout=()=>{
+  //   localStorage.clear()
+  //   dispatch(
+  //     set_authentication({
+  //       name:null,
+  //       isAuthenticated:null,
+  //       isAdmin:false,
+  //     })
+  //   )
+  //   navigate('/admin/login')
+  // }
+
+
+
+  const basUrl='http://127.0.0.1:8000'
+  const refreshToken = localStorage.getItem('refresh');
+
+  const logout = () => {
+    axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }})
+      .then(response => {
+        dispatch(set_authentication({
+          name: null,
+          isAuthenticated: false, 
+          isAdmin: false,
+        }));
+        localStorage.removeItem('atoken');
+        localStorage.removeItem('rtoken');
+        navigate('/admin/login')
       })
-    )
-    navigate('/admin/login')
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
   }
 
   return (
