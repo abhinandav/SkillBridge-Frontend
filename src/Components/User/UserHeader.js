@@ -43,7 +43,7 @@ const UserHeader = () => {
         }));
         localStorage.removeItem('atoken');
         localStorage.removeItem('rtoken');
-        navigate('/teacher')
+        navigate('/')
       })
       .catch(error => {
         console.error('Error logging out:', error);
