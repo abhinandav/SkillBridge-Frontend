@@ -173,7 +173,6 @@ console.log('invoice',invoice);
                  <span className='text-white mt-5'>Go back</span>
                  </Link>
             </div>
-
         </>);
 }
 
