@@ -126,7 +126,7 @@ function AdminVerifyDocuments() {
                 <div className="md:grid grid-cols-4   bg-white gap-2 p-4 rounded-xl">
                     <div className="md:col-span-1 h-100 ">
                     <div className="flex w-full h-full relative">
-                        <img src={userimg} className="w-44 h-44 m-auto" alt="" />
+                        <img src={baseURL+userData.teacher_profile.profile_pic} className="w-44 h-44 m-auto" alt="" />
                     </div>
                     </div>
                     <div className="md:col-span-3 h-48  space-y-2 p-3 my-20 mb-5">
