@@ -12,44 +12,44 @@ const TeacherHeader = () => {
   const authentication_user=useSelector(state=>state.authentication_user)
   console.log('hhhhh',authentication_user.isTeacher);
 
-  const logout=()=>{
-    localStorage.clear()
-    dispatch(
-      set_authentication({
-        name:null,
-        isAuthenticated:null,
-        isAdmin:false,
-        isTeacher:false
-      })
-    )
-    navigate('/teacher')
-  }
-
-
-  // const basUrl='https://skillbridge.store'
-  // const refreshToken = localStorage.getItem('refresh');
-
-  // const logout = () => {
-  //   axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('access')}`,
-  //       Accept: 'application/json',
-  //       'Content-Type': 'multipart/form-data',
-  //     }})
-  //     .then(response => {
-  //       dispatch(set_authentication({
-  //         name: null,
-  //         isAuthenticated: false, 
-  //         isAdmin: false,
-  //       }));
-  //       localStorage.removeItem('atoken');
-  //       localStorage.removeItem('rtoken');
-  //       navigate('/teacher')
+  // const logout=()=>{
+  //   localStorage.clear()
+  //   dispatch(
+  //     set_authentication({
+  //       name:null,
+  //       isAuthenticated:null,
+  //       isAdmin:false,
+  //       isTeacher:false
   //     })
-  //     .catch(error => {
-  //       console.error('Error logging out:', error);
-  //     });
+  //   )
+  //   navigate('/teacher')
   // }
+
+
+  const basUrl='https://skillbridge.store'
+  const refreshToken = localStorage.getItem('refresh');
+
+  const logout = () => {
+    axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }})
+      .then(response => {
+        dispatch(set_authentication({
+          name: null,
+          isAuthenticated: false, 
+          isAdmin: false,
+        }));
+        localStorage.removeItem('atoken');
+        localStorage.removeItem('rtoken');
+        navigate('/teacher')
+      })
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
+  }
 
 
 

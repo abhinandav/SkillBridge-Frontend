@@ -14,41 +14,41 @@ const UserHeader = () => {
 
   const authentication_user=useSelector(state=>state.authentication_user)
 
-  const logout=()=>{
-    localStorage.clear()
-    dispatch(
-      set_authentication({
-        name:null,
-        isAuthenticated:null,
-        isAdmin:false,
-      })
-    )
-    navigate('/')
-  }
-
-
-
-  // const logout = () => {
-  //   axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('access')}`,
-  //       Accept: 'application/json',
-  //       'Content-Type': 'multipart/form-data',
-  //     }})
-  //     .then(response => {
-  //       dispatch(set_authentication({
-  //         name: null,
-  //         isAuthenticated: false, 
-  //         isAdmin: false,
-  //       }));
-  //       localStorage.removeItem('atoken');
-  //       localStorage.removeItem('rtoken');
-  //       navigate('/teacher')
+  // const logout=()=>{
+  //   localStorage.clear()
+  //   dispatch(
+  //     set_authentication({
+  //       name:null,
+  //       isAuthenticated:null,
+  //       isAdmin:false,
   //     })
-  //     .catch(error => {
-  //       console.error('Error logging out:', error);
-  //     });
+  //   )
+  //   navigate('/')
   // }
+
+
+
+  const logout = () => {
+    axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }})
+      .then(response => {
+        dispatch(set_authentication({
+          name: null,
+          isAuthenticated: false, 
+          isAdmin: false,
+        }));
+        localStorage.removeItem('atoken');
+        localStorage.removeItem('rtoken');
+        navigate('/teacher')
+      })
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
+  }
 
   
 
