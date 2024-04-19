@@ -92,7 +92,8 @@ const UserHeader = () => {
 
               <div className="hidden sm:flex sm:items-center mr-5">
 
-              {(authentication_user.isAuthenticated  && !authentication_user.isAdmin  && !authentication_user.isTeacher) ? (<>
+              {(authentication_user.isAuthenticated  && !authentication_user.isAdmin  && !authentication_user.isTeacher) ? (
+              <>
                   <Link className="nav-link" to='profile'>
                     {authentication_user.name}
                   </Link>
@@ -129,14 +130,49 @@ const UserHeader = () => {
             {isMenuOpen && (
               <div className="block sm:hidden bg-white border-t-2 py-2 ">
                 <div className="flex flex-col">
-                  <a href="#" className="text-gray-800 text-sm font-semibold hover:text-orange-500 mb-1">Products</a>
-                  <a href="#" className="text-gray-800 text-sm font-semibold hover:text-orange-500 mb-1">Marketplace</a>
-                  <a href="#" className="text-gray-800 text-sm font-semibold hover:text-orange-500 mb-1">Partners</a>
-                  <a href="#" className="text-gray-800 text-sm font-semibold hover:text-orange-500 mb-1">Pricing</a>
+                <Link className="nav-link" to='course_list'>
+                <span className="text-gray-800 text-sm font-semibold hover:text-orange-500 mr-4">Courses</span>
+              </Link>
+
+              <Link className="nav-link" to={`inbox/undefined/`}>
+                <span className="text-gray-800 text-sm font-semibold hover:text-orange-500 mr-4">Inbox</span>
+              </Link>
+
+              
+
+              {(authentication_user.isAuthenticated  && !authentication_user.isAdmin  && !authentication_user.isTeacher) ? (
                   <div className="flex justify-between items-center border-t-2 pt-2">
-                    <a href="#" className="text-gray-800 text-sm font-semibold hover:text-orange-500 mr-4">Sign in</a>
-                    <a href="#" className="text-gray-800 text-sm font-semibold border px-4 py-1 rounded-lg hover:text-purple-600 hover:border-purple-600">Sign up</a>
+                    <Link className="nav-link" to='profile'>
+                      {authentication_user.name}
+                    </Link>
+
+                    <button onClick={logout} className="text-gray-800 text-md font-semibold border px-4 py-2 rounded-lg hover:text-orange-500 hover:border-orange-500 ml-5">
+                      Log Out
+                    </button>                  
                   </div>
+              ):(
+                <div className="flex justify-between items-center border-t-2 pt-2">
+                    <Link className="nav-link" to='login'>
+                      <span className="text-gray-800 text-md font-semibold  px-4 py-2 rounded-lg hover:text-orange-500 hover:border-orange-500">
+                        Sign In
+                      </span>
+                    </Link>
+
+                    <Link className="nav-link" to='signup'>
+                      <span className="text-gray-800 text-md font-semibold border px-4 py-2 rounded-lg hover:text-orange-500 hover:border-orange-500">
+                        Sign Up
+                      </span>
+                    </Link>
+
+                    
+                  </div>
+              )}
+
+
+
+
+
+
                 </div>
               </div>
             )}
