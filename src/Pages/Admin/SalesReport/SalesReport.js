@@ -14,13 +14,12 @@ function SalesReport() {
   const handleReportData = (data) => {
     console.log('Received report data:', data);
     setOrdersData(data);
-    setTimeout(() => {
-      setProcessing(false);
-  }, 1000);
+  //   setTimeout(() => {
+  //     setProcessing(false);
+  // }, 1000);
   };
 
   const fetchOrders = () => {
-    setProcessing(true);
     axios.get(`${baseURL}/adminapp/todays_report/`,{
     headers: {
       Authorization: `Bearer ${localStorage.getItem('access')}`,
@@ -30,6 +29,7 @@ function SalesReport() {
       .then(response => {
         if (response.data &&  response.data.order_list) {     
             handleReportData( response.data);
+            setProcessing(false);
         } else {
           console.error("Error fetching orders: Data is not an array or undefined", response);
         }
