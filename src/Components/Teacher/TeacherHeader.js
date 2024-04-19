@@ -42,8 +42,7 @@ const TeacherHeader = () => {
           isAuthenticated: false, 
           isAdmin: false,
         }));
-        localStorage.removeItem('atoken');
-        localStorage.removeItem('rtoken');
+        localStorage.clear()
         navigate('/teacher')
       })
       .catch(error => {
