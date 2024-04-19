@@ -38,7 +38,11 @@ function TeacherVideoPlayer() {
 
     const fetchCourse = async () => {
         try {
-        const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+        const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access')}`,
+            },
+        });
         const data=response.data
         setCourse({
             course_id:data.course.id,
@@ -151,7 +155,11 @@ function TeacherVideoPlayer() {
     const fetchVideoComments = async () => {
 
         try {
-            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`);
+            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`,{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                },
+            });
             const comments = response.data;
             setComments(response.data);
             console.log('Comments:', comments);

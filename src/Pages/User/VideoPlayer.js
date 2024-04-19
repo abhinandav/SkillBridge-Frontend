@@ -224,12 +224,6 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
         console.log('Reply Content:', replyContent);
 
         const response = await axios.post(baseURL+`/student/comments/${commentId}/add_reply/`,{
-            headers: {
-                'authorization': `Bearer ${localStorage.getItem('access')}`,
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json'
-            }
-        },{
             user: authentication_user.userid,
             comment: commentId,
             reply_text:replyComment
@@ -322,6 +316,7 @@ const handleEditCommentSubmit = async (event, commentId) => {
         console.error('Error editing comment:', error);
     }
 };
+
 const handleEditReplySubmit = async (event, replyId) => {
     console.log('replyId',replyId);
     event.preventDefault();
@@ -348,7 +343,6 @@ const handleEditReplySubmit = async (event, replyId) => {
 
 
 console.log(editedComment);
-
   return (
 
         <div className=''>

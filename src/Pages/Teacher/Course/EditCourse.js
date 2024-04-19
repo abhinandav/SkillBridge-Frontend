@@ -99,7 +99,11 @@ function EditCourse() {
 
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+        const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+        },
+        });
         const Data=response.data
 
 

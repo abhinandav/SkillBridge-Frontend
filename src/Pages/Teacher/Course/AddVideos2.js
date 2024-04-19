@@ -63,7 +63,8 @@ function AddVideos() {
     try {
       const response = await axios.post(baseURL+'/teacher/add_video/', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('access')}`,
         },
         onUploadProgress: progressEvent => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);

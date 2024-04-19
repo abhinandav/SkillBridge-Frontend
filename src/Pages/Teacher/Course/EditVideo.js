@@ -38,7 +38,11 @@ function EditVideo() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await axios.get(`${baseURL}/teacher/edit_video/${id}/`);
+        const response = await axios.get(`${baseURL}/teacher/edit_video/${id}/`,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+        }
+        });
         const Data=response.data
 
         let Video = null;
@@ -85,7 +89,8 @@ function EditVideo() {
     try {
       const response = await axios.put(`${baseURL}/teacher/edit_video/${id}/`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('access')}`,
         },
         onUploadProgress: progressEvent => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);

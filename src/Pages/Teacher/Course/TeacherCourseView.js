@@ -40,7 +40,11 @@ function TeacherCourseView() {
 
     const fetchCourse = async () => {
         try {
-          const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+          const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access')}`,
+            },
+          });
           const data=response.data
           console.log('data',data);
           setCourse({
@@ -81,7 +85,11 @@ function TeacherCourseView() {
     const blockCourse = (id) => {
         const confirmBlock = window.confirm('Are you sure you want to block this course?');
         if (confirmBlock) {
-            axios.patch(`${baseURL}/teacher/course_status/${id}/`, { is_blocked: true })
+            axios.patch(`${baseURL}/teacher/course_status/${id}/`, { is_blocked: true },{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                },
+            })
             .then((response) => {
                 console.log('User blocked successfully', response);
                 fetchCourse();
@@ -96,7 +104,11 @@ function TeacherCourseView() {
     const unblockCourse = (userId) => {
         const confirmUnblock = window.confirm('Are you sure you want to unblock this course?');
         if (confirmUnblock) {
-            axios.patch(`${baseURL}/teacher/course_status/${id}/`, { is_blocked: false })
+            axios.patch(`${baseURL}/teacher/course_status/${id}/`, { is_blocked: false },{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                },
+            })
             .then((response) => {
               console.log('User unblocked successfully', response);
               fetchCourse();
