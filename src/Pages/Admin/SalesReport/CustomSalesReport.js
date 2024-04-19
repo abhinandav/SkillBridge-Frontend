@@ -52,16 +52,17 @@ const handleDownload = () => {
 };
 
 const handleDownloadExcel = () => {
-    if (!ordersData.order_list || ordersData.order_list.length === 0) {
+    if (!ordersData.order_data || ordersData.order_data.length === 0) {
       console.error("No data available to download.");
       return;
     }
   
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(ordersData.order_list);
+    const worksheet = XLSX.utils.json_to_sheet(ordersData.order_data);
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sales Report");
     XLSX.writeFile(workbook, "sales_report.xlsx");
   };
+  
   
   const [isOpen, setIsOpen] = useState(false);
   
