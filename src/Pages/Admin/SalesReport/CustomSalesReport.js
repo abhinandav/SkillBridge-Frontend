@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 function CustomSalesReport() {
     const [ordersData, setOrdersData] = useState({ num_orders: 0, unique_course: 0, unique_users: 0, total_price: 0, order_data: [] });
     const [processing, setProcessing] = useState(false); 
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
   
     const handleReportData = (data) => {
       console.log('Received report data:', data);
