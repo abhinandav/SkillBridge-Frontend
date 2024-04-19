@@ -246,7 +246,12 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
 
 const fetchReplies = async (commentId) => {
     try {
-        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`);
+        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`,{
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access')}`,
+            },
+        });
         setReplies(prevReplies => ({
             ...prevReplies,
             [commentId]: response.data
