@@ -7,7 +7,7 @@ const CourseList = () => {
   const baseURL = "https://skillbridge.store";
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(true); 
 
   const fetchCourses = (url) => {
     axios.get(url)
@@ -15,6 +15,7 @@ const CourseList = () => {
         if (response.data && Array.isArray(response.data)) {
           const filteredCourses = response.data.filter(course => !course.is_blocked && course.is_accepted);
           setCourses(filteredCourses);
+          setIsLoading(false)
           // setTimeout(() => {
           //   setIsLoading(false);
           // }, 1000);
@@ -41,7 +42,7 @@ const CourseList = () => {
               <h1 className="text-4xl font-bold  m-5 text-gray-500">All Courses</h1>
               <div className="grid gap-2 gap-y-2 text-sm grid-cols-1 lg:grid-cols-2">
 
-              {/* {isLoading && Array.from({ length: 4 }).map((_, index) => (
+              {isLoading && Array.from({ length: 4 }).map((_, index) => (
                   <div key={index}>
                     <div className="relative my-10 block p-8 overflow-hidden border border-red-600 bg-white border-slate-300 rounded-lg ml-6 mr-6">
                       <div className="animate-pulse flex space-x-4">
@@ -56,7 +57,7 @@ const CourseList = () => {
                       </div>
                     </div>
                   </div>
-                ))} */}
+                ))}
 
                 {!isLoading && courses.length === 0 && <tr><td>No Courses Available now</td></tr>}
                 {!isLoading && courses.map((course) => (
