@@ -29,7 +29,13 @@ const CourseList = () => {
   };
 
   useEffect(() => {
-    fetchCourses(`${baseURL}/student/courses/?search=${searchQuery}`);
+    fetchCourses(`${baseURL}/student/courses/?search=${searchQuery}`,{
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('access')}`,
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+    }
+    });
   }, [searchQuery]);
 
   return (

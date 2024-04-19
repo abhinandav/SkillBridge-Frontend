@@ -37,7 +37,13 @@ function VideoPlayer() {
 
     const fetchCourse = async () => {
         try {
-        const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+        const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('access')}`,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
         const data=response.data
         setCourse({
             course_id:data.course.id,
@@ -152,7 +158,13 @@ function VideoPlayer() {
     const fetchVideoComments = async () => {
 
         try {
-            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`);
+            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`,{
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('access')}`,
+                    'Accept' : 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
             const comments = response.data;
             setComments(response.data);
             console.log('Comments:', comments);
@@ -212,6 +224,12 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
         console.log('Reply Content:', replyContent);
 
         const response = await axios.post(baseURL+`/student/comments/${commentId}/add_reply/`,{
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('access')}`,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }
+        },{
             user: authentication_user.userid,
             comment: commentId,
             reply_text:replyComment
@@ -239,7 +257,13 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
 
 const fetchReplies = async (commentId) => {
     try {
-        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`);
+        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`,{
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('access')}`,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
         setReplies(prevReplies => ({
             ...prevReplies,
             [commentId]: response.data
