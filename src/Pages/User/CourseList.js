@@ -10,7 +10,13 @@ const CourseList = () => {
   const [isLoading, setIsLoading] = useState(true); 
 
   const fetchCourses = (url) => {
-    axios.get(url)
+    axios.get(url,{
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('access')}`,
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+    }
+    })
       .then((response) => {
         if (response.data && Array.isArray(response.data)) {
           const filteredCourses = response.data.filter(course => !course.is_blocked && course.is_accepted);
@@ -29,13 +35,7 @@ const CourseList = () => {
   };
 
   useEffect(() => {
-    fetchCourses(`${baseURL}/student/courses/?search=${searchQuery}`,{
-      headers: {
-        'authorization': `Bearer ${localStorage.getItem('access')}`,
-        'Accept' : 'application/json',
-        'Content-Type': 'application/json'
-    }
-    });
+    fetchCourses(`${baseURL}/student/courses/?search=${searchQuery}`);
   }, [searchQuery]);
 
   return (
