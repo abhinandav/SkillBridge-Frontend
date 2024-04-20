@@ -53,13 +53,7 @@ function CourseView() {
     useEffect(() => {
         const fetchCourse = async () => {
           try {
-            const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
-              headers: {
-                'authorization': `Bearer ${localStorage.getItem('access')}`,
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json'
-            }
-            });
+            const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
             const data=response.data
             setCourse({
                 course_id:data.course.id,
