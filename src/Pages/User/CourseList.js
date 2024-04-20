@@ -10,13 +10,7 @@ const CourseList = () => {
   const [isLoading, setIsLoading] = useState(true); 
 
   const fetchCourses = (url) => {
-    axios.get(url,{
-      headers: {
-        'authorization': `Bearer ${localStorage.getItem('access')}`,
-        'Accept' : 'application/json',
-        'Content-Type': 'application/json'
-    }
-    })
+    axios.get(url)
       .then((response) => {
         if (response.data && Array.isArray(response.data)) {
           const filteredCourses = response.data.filter(course => !course.is_blocked && course.is_accepted);
