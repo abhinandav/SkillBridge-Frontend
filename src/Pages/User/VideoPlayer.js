@@ -389,7 +389,7 @@ console.log(editedComment);
                     {videoUrl && (
                     <div className="lg:col-span-4 w-200">
                         <div>
-                        <video className="" autoplay controls >
+                        <video style={{width:700}} className="" autoplay controls >
                         <source src={baseURL+videoUrl} type="video/mp4" />
                         Your browser does not support the video tag.
                         </video>
