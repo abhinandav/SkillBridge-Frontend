@@ -31,7 +31,12 @@ function AdminAcceptedCourseView() {
     useEffect(() => {
         const fetchCourse = async () => {
             try {
-                const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+                const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${localStorage.getItem('access')}`,
+                    }
+                });
                 const data = response.data;
                 const allVideosAccepted = data.videos.every(video => video.is_accepted);
                 setCourse({
@@ -62,7 +67,12 @@ function AdminAcceptedCourseView() {
         const confirmAccept = window.confirm('Are you sure you want to accept this video?');
       
         if (confirmAccept) {
-            axios.patch(`${baseURL}/adminapp/video_status/${id}/`, { is_accepted: true })
+            axios.patch(`${baseURL}/adminapp/video_status/${id}/`, { is_accepted: true },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                }
+            })
             .then((response) => {
                 console.log('course accepted successfully', response);
                 setCourse(prevCourse => {
@@ -85,7 +95,12 @@ function AdminAcceptedCourseView() {
     const acceptCourse = () => {
         const confirmAccept = window.confirm('Are you sure you want to accept this course?');
         if (confirmAccept) {
-            axios.patch(`${baseURL}/adminapp/course_status/${id}/`, { is_accepted: true })
+            axios.patch(`${baseURL}/adminapp/course_status/${id}/`, { is_accepted: true },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                }
+            })
             .then((response) => {
                 console.log('course accepted successfully', response);
                 setCourse(prevCourse => ({
