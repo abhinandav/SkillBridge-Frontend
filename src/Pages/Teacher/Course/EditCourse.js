@@ -157,6 +157,8 @@ function EditCourse() {
         setDescError('Description required is required');
     }
 
+
+
     if (!course.level.trim()) {
       setLevelError('level required is required');
   }
@@ -167,7 +169,14 @@ function EditCourse() {
 }
 if (!course.offer_price.trim()) {
   setOfpriceError('offer price required is required');
+  return
 }
+
+if (parseInt(course.original_price)<parseInt(course.offer_price)) {
+  setOfpriceError('Offer Price cant be higher than original price')
+  return
+}
+
 
 
 
@@ -300,6 +309,7 @@ if (!course.offer_price.trim()) {
                        <Link to={course.demo_video}> Current Demo Video </Link>
                       </p>
                     )}
+                    
                   </div>
 
 
@@ -349,11 +359,14 @@ if (!course.offer_price.trim()) {
                     <input type="text" name="original_price" value={course.original_price} onChange={handleChange} placeholder='enter  original price' className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  />
                   </div>
                 </div>
+                {opriceError && <span className="text-md text-red-800 mt-1 mb-5">{opriceError}</span>}
+
 
                 <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6 mt-5">
                   <div className="md:col-span-3">
                     <label htmlFor="offer_price">Offer Price</label>
                     <input type="text" name="offer_price" value={course.offer_price} onChange={handleChange} placeholder='enter  offer3 price' className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  />
+                    {ofpriceError && <span className="text-md text-red-800 mt-1 mb-5">{ofpriceError}</span>}
                   </div>
 
 

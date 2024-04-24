@@ -87,10 +87,9 @@ function AddCourse() {
     
       if (!formData.original_price.trim()) {
         setOpriceError('original price required is required');
-        
 
-    }
-
+      }
+     
    
 
     if (!formData.demo_video) {
@@ -111,7 +110,11 @@ function AddCourse() {
       return 
     }
 
-    
+    if (parseInt(formData.original_price)<parseInt(formData.offer_price)) {
+      setOfpriceError('Offer Price cant be higher than original price')
+      return
+}
+
 
     
         try {

@@ -11,7 +11,9 @@ function EditVideo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [uploadProgress, setUploadProgress] = useState(0);
-
+  const [nameError,setNameError]=useState('')
+  const [descError,setDescError]=useState('')
+  
   const [videoData, setVideoData] = useState({
     video_name: '',
     description: '',
@@ -76,6 +78,18 @@ function EditVideo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDescError('')
+    setNameError('')
+
+    if (!videoData.video_name.trim()) {
+      setNameError('Name is required *');
+      return
+    }
+    if (!videoData.description.trim()) {
+      setDescError('description is required *');
+      return
+    }
+
     const formData = new FormData();
     formData.append('video_name', videoData.video_name);
     formData.append('description', videoData.description);
@@ -148,6 +162,8 @@ console.log('videoData',videoData);
                           placeholder="Enter video name"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                         />
+                       {nameError && <span className="text-md text-red-800 mt-1 mb-5">{nameError}</span>}
+
                       </div>
                       <div className="md:col-span-6 mt-3">
                         <label htmlFor="address">Description</label>
@@ -158,6 +174,7 @@ console.log('videoData',videoData);
                           className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 resize-none"
                           placeholder="Enter description"
                         ></textarea>
+                          {descError && <span className="text-md text-red-800 mt-1 mb-5">{descError}</span>}
                       </div>
                       <div className="md:col-span-4 mt-3">
                         <label htmlFor="demo">Add Video</label>
