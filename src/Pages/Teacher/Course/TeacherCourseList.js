@@ -6,6 +6,8 @@ const TeacherCourseList = () => {
   const token=localStorage.getItem('access')
   const baseURL = "https://skillbridge.store";
   const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+
 
 
   const fetchCourses = () => {
