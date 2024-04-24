@@ -9,7 +9,7 @@ import { FaFacebookF } from "react-icons/fa";
 const UserProfile = () => {
 
   const profileDetails = useSelector(state => state.profile_details);
-  const baseUrl = 'http://127.0.0.1:8000';
+  const baseUrl = 'https://skillbridge.store';
   const token = localStorage.getItem('access');
   const dispatch = useDispatch();
   const authentication_user = useSelector(state => state.authentication_user);

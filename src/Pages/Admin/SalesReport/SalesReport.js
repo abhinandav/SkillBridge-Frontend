@@ -8,7 +8,7 @@ import * as XLSX from 'xlsx';
 
 function SalesReport() {
   const [ordersData, setOrdersData] = useState({ orders_today_count: 0,course_count:0,users_count:0,total_earnings:0, order_list: [] });
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [processing, setProcessing] = useState(false);
 
   const handleReportData = (data) => {
@@ -20,7 +20,7 @@ function SalesReport() {
   };
 
   const fetchOrders = () => {
-    setProcessing(true);
+    setProcessing(true)
     axios.get(`${baseURL}/adminapp/todays_report/`,{
     headers: {
       Authorization: `Bearer ${localStorage.getItem('access')}`,
@@ -30,6 +30,7 @@ function SalesReport() {
       .then(response => {
         if (response.data &&  response.data.order_list) {     
             handleReportData( response.data);
+
         } else {
           console.error("Error fetching orders: Data is not an array or undefined", response);
         }

@@ -18,7 +18,7 @@ function ChangePasswordPage() {
     }, [location]);
 
     const decodeHash = (hashValue) => {
-        axios.get(`http://127.0.0.1:8000/api/accounts/decode_hash?hash=${hashValue}/`)
+        axios.get(`https://skillbridge.store/api/accounts/decode_hash?hash=${hashValue}/`)
             .then(response => {
                 const userId = response.data.userId;
                 setUserId(userId);

@@ -13,7 +13,7 @@ const {state}=useLocation()
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [loginError, setLoginError] = useState('')
-  const baseURL='http://127.0.0.1:8000'
+  const baseURL='https://skillbridge.store'
 
 
   useEffect(() => {

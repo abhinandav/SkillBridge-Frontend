@@ -11,7 +11,7 @@ import placeholderprofile from '../../../Images/default/placeholderprofile.webp'
 
 
 function TeacherVideoPlayer() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const userid = localStorage.getItem('userid');
     const authentication_user=useSelector(state=>(state.authentication_user))
@@ -38,7 +38,11 @@ function TeacherVideoPlayer() {
 
     const fetchCourse = async () => {
         try {
-        const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+        const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access')}`,
+            },
+        });
         const data=response.data
         setCourse({
             course_id:data.course.id,
@@ -151,7 +155,11 @@ function TeacherVideoPlayer() {
     const fetchVideoComments = async () => {
 
         try {
-            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`);
+            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`,{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                },
+            });
             const comments = response.data;
             setComments(response.data);
             console.log('Comments:', comments);
@@ -238,7 +246,12 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
 
 const fetchReplies = async (commentId) => {
     try {
-        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`);
+        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`,{
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access')}`,
+            },
+        });
         setReplies(prevReplies => ({
             ...prevReplies,
             [commentId]: response.data
@@ -377,7 +390,7 @@ console.log('videoUrl',videoUrl)
                     {videoUrl && (
                     <div className="lg:col-span-4 w-200">
                         <div>
-                        <video className="" autoplay controls >
+                        <video style={{width:700}} className="" autoplay controls >
                         <source src={baseURL+videoUrl} type="video/mp4" />
                         Your browser does not support the video tag.
                         </video>

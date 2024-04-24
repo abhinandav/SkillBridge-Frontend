@@ -4,7 +4,7 @@ import axios from 'axios';
 import ProfileSidebar from './ProfileSidebar';
 
 const EnrolledCourses = () => {
-    const baseUrl = 'http://127.0.0.1:8000';
+    const baseUrl = 'https://skillbridge.store';
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const token = localStorage.getItem('access');

@@ -2,6 +2,7 @@ import React from 'react';
 import { set_authentication } from '../../Redux/autehnticationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 
 const AdminHeader = () => {
@@ -11,16 +12,42 @@ const AdminHeader = () => {
   const navigate =useNavigate()
 
 
-  const logout=()=>{
-    localStorage.clear()
-    dispatch(
-      set_authentication({
-        name:null,
-        isAuthenticated:null,
-        isAdmin:false,
+  // const logout=()=>{
+  //   localStorage.clear()
+  //   dispatch(
+  //     set_authentication({
+  //       name:null,
+  //       isAuthenticated:null,
+  //       isAdmin:false,
+  //     })
+  //   )
+  //   navigate('/admin/login')
+  // }
+
+
+
+  const basUrl='https://skillbridge.store'
+  const refreshToken = localStorage.getItem('refresh');
+
+  const logout = () => {
+    axios.post(basUrl + '/api/accounts/logout/',{'refresh':refreshToken}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      }})
+      .then(response => {
+        dispatch(set_authentication({
+          name: null,
+          isAuthenticated: false, 
+          isAdmin: false,
+        }));
+        localStorage.clear()
+        navigate('/admin/login')
       })
-    )
-    navigate('/admin/login')
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
   }
 
   return (

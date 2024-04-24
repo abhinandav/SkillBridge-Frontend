@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 const TeacherCourseList = () => {
   const token=localStorage.getItem('access')
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [courses, setCourses] = useState([]);
 
 

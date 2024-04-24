@@ -9,7 +9,7 @@ import * as XLSX from 'xlsx';
 
 function SalesReportWeek() {
   const [ordersData, setOrdersData] = useState({ orders_this_week_count: 0,course_count:0,users_count:0,total_earnings:0, order_list: [] });
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [startOfWeek, setStartOfWeek] = useState('');
   const [endOfWeek, setEndOfWeek] = useState('');
 

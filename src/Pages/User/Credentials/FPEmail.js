@@ -17,7 +17,7 @@ function FPEmails() {
         
         try {
           const response = await axios.post(
-            "http://127.0.0.1:8000/api/accounts/forgotpassword/",
+            "https://skillbridge.store/api/accounts/forgotpassword/",
             {
               email: email,
             }

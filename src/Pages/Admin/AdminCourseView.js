@@ -6,7 +6,7 @@ import Sidebar from '../../Components/Admin/Sidebar';
 import AdminHeader from '../../Components/Admin/AdminHeader';
 
 function AdminCourseView() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [showModal, setShowModal] = useState(false);

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 const TeacherSignup = () => {
-  const baseURL = 'http://127.0.0.1:8000';
+  const baseURL = 'https://skillbridge.store';
   const navigate = useNavigate();
   const [usernameError, setUsernameError] = useState('')
   const [emailError, setEmailError] = useState('')

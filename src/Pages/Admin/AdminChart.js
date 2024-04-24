@@ -5,7 +5,7 @@ import axios from 'axios';
 function AdminChart() {
     const chartRef = useRef(null);
     const [orders, setOrders] = useState([]);
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const [viewMode, setViewMode] = useState('monthly');
 
     const [chartData, setChartData] = useState({

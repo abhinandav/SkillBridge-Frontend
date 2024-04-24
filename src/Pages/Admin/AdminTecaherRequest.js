@@ -9,7 +9,7 @@ function AdminTecaherRequest() {
   const authentication_user = useSelector(state => state.authentication_user);
   console.log('authicate', authentication_user.isAuthenticated);
 
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [users, setUsers] = useState([]);
 
   const fetchUsers = (url) => {

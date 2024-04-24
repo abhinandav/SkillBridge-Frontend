@@ -13,7 +13,7 @@ import { FaReply } from "react-icons/fa";
 
 
 function VideoPlayer() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const authentication_user=useSelector(state=>(state.authentication_user))
 
@@ -37,7 +37,13 @@ function VideoPlayer() {
 
     const fetchCourse = async () => {
         try {
-        const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+        const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('access')}`,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
         const data=response.data
         setCourse({
             course_id:data.course.id,
@@ -152,7 +158,13 @@ function VideoPlayer() {
     const fetchVideoComments = async () => {
 
         try {
-            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`);
+            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`,{
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('access')}`,
+                    'Accept' : 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
             const comments = response.data;
             setComments(response.data);
             console.log('Comments:', comments);
@@ -239,7 +251,11 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
 
 const fetchReplies = async (commentId) => {
     try {
-        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`);
+        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access')}`,
+            },
+        });
         setReplies(prevReplies => ({
             ...prevReplies,
             [commentId]: response.data
@@ -300,6 +316,7 @@ const handleEditCommentSubmit = async (event, commentId) => {
         console.error('Error editing comment:', error);
     }
 };
+
 const handleEditReplySubmit = async (event, replyId) => {
     console.log('replyId',replyId);
     event.preventDefault();
@@ -326,7 +343,6 @@ const handleEditReplySubmit = async (event, replyId) => {
 
 
 console.log(editedComment);
-
   return (
 
         <div className=''>
@@ -373,7 +389,7 @@ console.log(editedComment);
                     {videoUrl && (
                     <div className="lg:col-span-4 w-200">
                         <div>
-                        <video className="" autoplay controls >
+                        <video style={{width:700}} className="" autoplay controls >
                         <source src={baseURL+videoUrl} type="video/mp4" />
                         Your browser does not support the video tag.
                         </video>

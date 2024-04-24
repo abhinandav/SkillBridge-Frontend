@@ -9,7 +9,7 @@ import userimg from '../../Images/userprofile.webp'
 function TeacherDetailview() {
     const navigate = useNavigate();
     const token=localStorage.getItem('access')
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const { id } = useParams();
 
     const [userData, setUserData] = useState(null);
@@ -253,7 +253,7 @@ function TeacherDetailview() {
 
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a
-                                            href={`http://localhost:8000${userData.teacher_documents.id_proof}`}
+                                            href={`https://skillbridge.store${userData.teacher_documents.id_proof}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500"
@@ -285,7 +285,7 @@ function TeacherDetailview() {
                                     </td>
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a
-                                            href={`http://localhost:8000${userData.teacher_documents.photo_proof}`}
+                                            href={`https://skillbridge.store${userData.teacher_documents.photo_proof}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500"
@@ -315,7 +315,7 @@ function TeacherDetailview() {
                                     </td>
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a
-                                            href={`http://localhost:8000${userData.teacher_documents.tenth_proof}`}
+                                            href={`https://skillbridge.store${userData.teacher_documents.tenth_proof}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500"
@@ -347,7 +347,7 @@ function TeacherDetailview() {
 
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a
-                                            href={`http://localhost:8000${userData.teacher_documents.plustwo_proof}`}
+                                            href={`https://skillbridge.store${userData.teacher_documents.plustwo_proof}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500"
@@ -379,7 +379,7 @@ function TeacherDetailview() {
 
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a
-                                            href={`http://localhost:8000${userData.teacher_documents.graduation_proof}`}
+                                            href={`https://skillbridge.store${userData.teacher_documents.graduation_proof}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500"
@@ -410,7 +410,7 @@ function TeacherDetailview() {
 
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a
-                                            href={`http://localhost:8000${userData.teacher_documents.experience_proof}`}
+                                            href={`https://skillbridge.store${userData.teacher_documents.experience_proof}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500"
