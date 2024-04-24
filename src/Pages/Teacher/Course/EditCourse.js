@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaEdit } from 'react-icons/fa';
 
 function EditCourse() {
-    const baseURL='http://127.0.0.1:8000'
+    const baseURL='https://skillbridge.store'
     const token = localStorage.getItem('access');
     const [nameError,setNameError]=useState('')
     const [descError,setDescError]=useState('')
@@ -99,7 +99,11 @@ function EditCourse() {
 
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`${baseURL}/student/course_view/${id}/`);
+        const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+        },
+        });
         const Data=response.data
 
 

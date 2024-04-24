@@ -8,7 +8,7 @@ import cblock from '../..//Images/cblock.png'
 import videoimg from '../..//Images/video.png'
 
 function AdminHomeCards() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const [data,setData]=useState(null)
   
   

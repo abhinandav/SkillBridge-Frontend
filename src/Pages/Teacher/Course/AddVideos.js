@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function AddVideos() {
-  const baseURL='http://127.0.0.1:8000';
+  const baseURL='https://skillbridge.store';
   const { id } = useParams();
   const navigate = useNavigate();
   const [nameError,setNameError]=useState('')
@@ -64,7 +64,8 @@ function AddVideos() {
     try {
       const response = await axios.post(baseURL+'/teacher/add_video/', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
         },
         onUploadProgress: progressEvent => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);

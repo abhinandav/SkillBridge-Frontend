@@ -7,7 +7,7 @@ import msgimg from '../../Images/msg1.jpg'
 
 
 function Messages() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const userid = localStorage.getItem('userid');
 
@@ -56,7 +56,7 @@ console.log('senders',senders);
 useEffect(() => {
     if (orderId) {
         console.log(orderId);
-        const wsURL = `ws://127.0.0.1:8000/ws/socket-server/${orderId}/`;
+        const wsURL = `wss://skillbridge.store/ws/socket-server/${orderId}/`;
         connectToWebSocket(wsURL);
         return () => {
             client && client.close();

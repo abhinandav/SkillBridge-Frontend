@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CourseSearch from './Searchbar';
 
 const CourseList = () => {
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true); 
@@ -15,9 +15,10 @@ const CourseList = () => {
         if (response.data && Array.isArray(response.data)) {
           const filteredCourses = response.data.filter(course => !course.is_blocked && course.is_accepted);
           setCourses(filteredCourses);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 3000);
+          setIsLoading(false)
+          // setTimeout(() => {
+          //   setIsLoading(false);
+          // }, 1000);
         } else {
           console.error("Error fetching courses: Data is not an array or undefined", response);
         }

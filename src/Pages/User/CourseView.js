@@ -17,7 +17,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 
 
 function CourseView() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const user_id=localStorage.getItem('userid')
     const navigate=useNavigate()
@@ -242,7 +242,7 @@ useEffect(() => {
             {alreadyPurchased && (
             <Link to={`/videoplayer/${id}/${course.videos[0]?.id}`}>
             <span className="text-blue-800 text-md font-semibold bg-blue-50 border border-blue-700 px-4 py-2 rounded-lg hover:text-orange-500 hover:border-orange-500 hover:bg-orange-50 cursor-pointer ml-5"
-                onClick={() => handleStartLesson(course.id, course.videos[0].id)}>
+                >
                 Start Lesson
             </span>
             </Link>)}

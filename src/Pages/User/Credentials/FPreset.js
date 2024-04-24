@@ -38,7 +38,7 @@ function FPreset() {
   
       try {
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/accounts/change_password/"+id+"/",
+          "https://skillbridge.store/api/accounts/change_password/"+id+"/",
           formData
         );
   

@@ -11,7 +11,7 @@ function AdminTeacherList() {
   console.log('authicate', authentication_user.isAuthenticated);
   const token=localStorage.getItem('access')
 
-  const baseURL = "http://127.0.0.1:8000";
+  const baseURL = "https://skillbridge.store";
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState('');
   const [selectCourseId, setSelectCourseId] = useState(null);
@@ -128,7 +128,7 @@ function AdminTeacherList() {
               <div className="flex items-center justify-between">
                 <div className="lg:ml-40 ml-10 space-x-8">
                   <span className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide ">
-                    View New Courses
+                    Pending Courses 
                   </span>
                 </div>
               </div>
