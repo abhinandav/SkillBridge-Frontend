@@ -14,6 +14,23 @@ function FPreset() {
   
     const handlePasswordReset = async (event) => {
       event.preventDefault();
+
+      / Check if passwords are empty
+    if (!password || !confirmPassword) {
+      setError("Please fill in both password fields.");
+      return;
+    }
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+    
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
   
      
       const formData = new FormData();

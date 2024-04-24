@@ -18,6 +18,10 @@ const TeacherCourseList = () => {
         if (response.data && Array.isArray(response.data)) {        
           console.log(response.data);
           setCourses(response.data);
+          
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 3000);
         } else {
           console.error("Error fetching course: Data is not an array or undefined", response);
         }
@@ -54,9 +58,26 @@ const TeacherCourseList = () => {
             </div>
 
             <div className="grid gap-2 gap-y-2 text-sm grid-cols-1 lg:grid-cols-2">
-              
-            {courses.length === 0 && <tr><td>No Courses Avialable now</td></tr>}
-            {courses.map((course) => (
+            {isLoading && Array.from({ length: 4 }).map((_, index) => (
+                  <div key={index}>
+                    <div className="relative my-10 block p-8 overflow-hidden border border-red-600 bg-white border-slate-300 rounded-lg ml-6 mr-6">
+                      <div className="animate-pulse flex space-x-4">
+                        <div className="flex-1 space-y-4 py-1">
+                          <div className="h-4 bg-gray-400 rounded w-3/4"></div>
+                          <div className="space-y-2">
+                            <div className="h-4 bg-gray-400 rounded"></div>
+                            <div className="h-4 bg-gray-400 rounded w-5/6"></div>
+                          </div>
+                        </div>
+                        <div className="rounded-full bg-gray-400 h-12 w-12"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+
+            {!isLoading &&courses.length === 0 && <tr><td>No Courses Avialable now</td></tr>}
+            {!isLoading &&courses.map((course) => (
             <div key={course.id}>
               <Link to={`/teacher/view_course/${course.id}`}>
               <span   className="relative my-10 block p-8 overflow-hidden border bg-white border-slate-300 rounded-lg ml-6 mr-6">
@@ -87,7 +108,11 @@ const TeacherCourseList = () => {
                 <dl className="flex justify-between mt-6">
                   <div className="flex ">
                       <div className="flex flex-col-reverse">
-                        <dt className="text-sm font-medium text-slate-600">Published</dt>
+                        { course.is_accepted ?(
+                          <dt className="text-sm font-medium text-green-600">Published</dt>
+                        ):(
+                        <dt className="text-sm font-medium text-red-600">Not Published</dt>
+                      )}
                         <dd className="text-xs text-slate-500"> {course.date_added}</dd>
                       </div>
                       <div className="flex flex-col-reverse ml-3 sm:ml-6">
