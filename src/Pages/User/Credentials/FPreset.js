@@ -15,7 +15,6 @@ function FPreset() {
     const handlePasswordReset = async (event) => {
       event.preventDefault();
 
-      / Check if passwords are empty
     if (!password || !confirmPassword) {
       setError("Please fill in both password fields.");
       return;
