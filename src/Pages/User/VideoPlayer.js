@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams, Lin, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { formatDistanceToNow } from 'date-fns';
@@ -8,14 +8,19 @@ import { FaCrown } from "react-icons/fa";
 import placeholderprofile from '../../Images/default/placeholderprofile.webp'
 import { CiEdit } from "react-icons/ci";
 import { FaReply } from "react-icons/fa";
+import { FaRegEye,FaRegEyeSlash } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
+
 
 
 
 
 function VideoPlayer() {
-    const baseURL = "https://skillbridge.store";
+    const baseURL = "http://127.0.0.1:8000";
     const token = localStorage.getItem('access');
     const authentication_user=useSelector(state=>(state.authentication_user))
+    console.log('user',authentication_user);
+    const navigate =useNavigate()
 
     const { id, vid } = useParams();
 
@@ -35,13 +40,13 @@ function VideoPlayer() {
     const [editedReply, setEditedReply] = useState('');
     const [editingReplyId, setEditingReplyId] = useState(null);
 
+
+
     const fetchCourse = async () => {
         try {
         const response = await axios.get(`${baseURL}/student/course_view/${id}/`,{
             headers: {
-                'authorization': `Bearer ${localStorage.getItem('access')}`,
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json'
+                Authorization: `Bearer ${localStorage.getItem('access')}`
             }
         });
         const data=response.data
@@ -66,34 +71,31 @@ function VideoPlayer() {
         console.error("Error fetching course:", error);
         }
     };
+
+
         
 
-    const fetchVideoDetails = async () => {
-        try {
-            const response = await axios.get(`${baseURL}/student/courses/${id}/videos/${vid}/`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            
-            setVideoUrl(response.data.video); 
-            console.log(response.data);
+        const fetchVideoDetails = async () => {
+            try {
+                const response = await axios.get(`${baseURL}/student/courses/${id}/videos/${vid}/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                setVideoUrl(response.data.video); 
+                console.log('aaa',response.data);
 
-        } catch (error) {
-            console.error('Error fetching video details:', error);
+            } catch (error) {
+                console.error('Error fetching video details:', error);
 
-        }
-    };
+            }
+        };
+    
 
 
 
 
-    const handleVideoLinkClick = (newVideoId) => {
-        setVideoUrl(''); 
-        setLoading(true); // Set loading state to true when fetching video details
-        window.history.pushState(null, null, `/videoplayer/${id}/${newVideoId}`);
-        fetchVideoDetails();
-    };
 
 
     useEffect(() => {
@@ -129,6 +131,33 @@ function VideoPlayer() {
 
 
 
+    const handleVideoLinkClick = (newVideoId) => {
+        setVideoUrl('');
+        setLoading(true);
+        axios.post(baseURL + `/student/view_status/${newVideoId}/`,{'id':authentication_user.userid}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access')}`
+            }
+        })
+        .then(res => {
+            if (res.status === 200) {
+                navigate(`/videoplayer/${id}/${newVideoId}`);
+                fetchVideoDetails();
+            } else {
+                console.log('Error occurred');
+            }
+        })
+        .catch(error => {
+            console.error('Error occurred:', error);
+        });
+        // navigate(`/videoplayer/${id}/${newVideoId}`);
+        // fetchVideoDetails();
+    };
+    
+
+
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -158,13 +187,7 @@ function VideoPlayer() {
     const fetchVideoComments = async () => {
 
         try {
-            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`,{
-                headers: {
-                    'authorization': `Bearer ${localStorage.getItem('access')}`,
-                    'Accept' : 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
+            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`);
             const comments = response.data;
             setComments(response.data);
             console.log('Comments:', comments);
@@ -174,8 +197,6 @@ function VideoPlayer() {
         }
     };
     
-
-
 
       const checkCoursePurchase = async () => {
         try {
@@ -195,16 +216,10 @@ function VideoPlayer() {
     };
     
 
-
-
     useEffect(() => {
         fetchVideoComments();
         checkCoursePurchase()
     },[vid]);
-
-
-    
-
 
 
 const handleReplyClick = (commentId) => {
@@ -213,9 +228,6 @@ const handleReplyClick = (commentId) => {
         [commentId]: !prevFields[commentId] 
     }));
 };
-
-
-
 
 const handleReplySubmit = async (event,commentId, replyContent) => {
     event.preventDefault(); 
@@ -248,14 +260,9 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
     }
 };
 
-
 const fetchReplies = async (commentId) => {
     try {
-        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`,{
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('access')}`,
-            },
-        });
+        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`);
         setReplies(prevReplies => ({
             ...prevReplies,
             [commentId]: response.data
@@ -277,11 +284,6 @@ useEffect(() => {
         }))}
     
 }, [comments,newReply]);
-
-console.log('replies',replies);
-
-
-
 
 const handleEditButtonClick = (event, commentId, commentContent) => {
     event.preventDefault();
@@ -317,6 +319,7 @@ const handleEditCommentSubmit = async (event, commentId) => {
     }
 };
 
+
 const handleEditReplySubmit = async (event, replyId) => {
     console.log('replyId',replyId);
     event.preventDefault();
@@ -341,17 +344,60 @@ const handleEditReplySubmit = async (event, replyId) => {
     }
 };
 
+// -------------------------------------------
 
-console.log(editedComment);
+const [allVideosWatched, setAllVideosWatched] = useState(false);
+
+    useEffect(() => {
+        const fetchAllVideosWatched = async () => {
+            setAllVideosWatched(false)
+            try {
+                const response = await axios.get(baseURL+`/student/check_all_videos_watched/${id}/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setAllVideosWatched(response.data.all_videos_watched);
+            } catch (error) {
+                console.error('Error fetching all videos watched:', error);
+            }
+        };
+
+        fetchAllVideosWatched();
+    }, [id,vid]);
+
+// ----------------------------------
+const [viewedVideoIds, setViewedVideoIds] = useState([]);
+
+const fetchViewedVideoIds = async () => {
+    try {
+        const response = await axios.get(baseURL + '/student/viewed_videos/', {
+            params: {
+                uid: authentication_user.userid
+            }
+        });
+        return response.data.viewed_video_ids;
+    } catch (error) {
+        console.error('Error fetching viewed videos:', error);
+        return [];
+    }
+};
+
+
+useEffect(() => {
+    fetchViewedVideoIds().then(viewedVideoIds => {
+        setViewedVideoIds(viewedVideoIds);
+    });
+}, [vid]);
+
   return (
-
         <div className=''>
         <div className="  bg-gray-100 flex items-center justify-center ">
             <div className="container max-w-screen-x mx-auto my-8 px-20">
             <div className="  bg-white rounded shadow-lg  md:p-8 mb-6">
 
             
-                <nav className="flex" aria-label="Breadcrumb">
+                <nav className="flex  justify-between" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li className="inline-flex items-center">
                 <Link to='/'>
@@ -382,6 +428,15 @@ console.log(editedComment);
                     </div>
                     </li>
                 </ol>
+                <div>
+                    {allVideosWatched ? (
+                        <Link to={`/certificate/${id}`} >
+                        <p className='text-green-500'>Download Certificate.</p>
+                        </Link>
+                    ) : (
+                        <p>''</p>
+                    )}
+                </div>
                 </nav>
                 
 
@@ -389,7 +444,7 @@ console.log(editedComment);
                     {videoUrl && (
                     <div className="lg:col-span-4 w-200">
                         <div>
-                        <video style={{width:700}} className="" autoplay controls >
+                        <video className="" autoplay controls >
                         <source src={baseURL+videoUrl} type="video/mp4" />
                         Your browser does not support the video tag.
                         </video>
@@ -571,19 +626,37 @@ console.log(editedComment);
                             <div className="bg--200">
                                 <ul className="border border-gray-100 rounded overflow-hidden flex">
                                     <div className="flex-1">
-                                        {course.videos.map((video) => (
+                                        {/* {course.videos.map((video) => (
 
                                             <span key={video.id}  onClick={() => handleVideoLinkClick(video.id)} >
                                                 <Link to={`/videoplayer/${id}/${video.id}`}>
-
-                                                <li className={` flex justify-between text-lg my-2 p-5 px-4 py-2 ${parseInt(vid) === parseInt(video.id) ? 'bg-gray-300 rounded-xl' : ''} hover:bg-sky-50 hover:text-sky-900 border-b last:border-none border-gray-100 transition-all duration-300 ease-in-out`}>
-                                                    <span>{video.video_name}</span>
-                                                    <span>{video.duration}</span>
-                                                </li>
+                                                    <>
+                                       
+                                                    <li className={` flex justify-between text-lg my-2 p-5 px-4 py-2 ${parseInt(vid) === parseInt(video.id) ? 'bg-gray-300 rounded-xl' : ''} hover:bg-sky-50 hover:text-sky-900 border-b last:border-none border-gray-100 transition-all duration-300 ease-in-out`}>
+                                                        {if viewed <FaRegEye /> else <FaRegEyeSlash />}
+                                                        <span>{video.video_name}</span>
+                                                        <span>{video.duration}</span>
+                                                    </li>
+                                                    </>
 
                                                 </Link>
                                             </span>
+                                        ))} */}
+
+                                        {course.videos.map((video) => (
+                                            <span key={video.id} onClick={() => handleVideoLinkClick(video.id)}>
+                                                <Link to={`/videoplayer/${id}/${video.id}`}>
+                                                    <>
+                                                        <li className={`flex justify-between text-lg my-2 p-5 px-4 py-2 ${parseInt(vid) === parseInt(video.id) ? 'bg-gray-300 rounded-xl' : ''} hover:bg-sky-50 hover:text-sky-900 border-b last:border-none border-gray-100 transition-all duration-300 ease-in-out`}>
+                                                            <span className='pr-3 mt-2'>{viewedVideoIds.includes(video.id) ? <IoEyeOutline /> : <FaRegEyeSlash />}</span>
+                                                            <span>{video.video_name}</span>
+                                                            <span>{video.duration}</span>
+                                                        </li>
+                                                    </>
+                                                </Link>
+                                            </span>
                                         ))}
+
                                     </div>
                                 </ul>
                             </div>
@@ -591,9 +664,6 @@ console.log(editedComment);
                     </div>
             
                 </div>
-
-
-
 
             </div>
             </div>

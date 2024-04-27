@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FaLock } from 'react-icons/fa'
 import { toast } from 'react-toastify';
@@ -17,10 +18,12 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 
 
 function CourseView() {
-    const baseURL = "https://skillbridge.store";
-    const token = localStorage.getItem('access');
+  const baseURL = "https://skillbridge.store";
+      const token = localStorage.getItem('access');
     const user_id=localStorage.getItem('userid')
     const navigate=useNavigate()
+    const authentication_user=useSelector(state=>(state.authentication_user))
+
 
 
     
@@ -106,7 +109,22 @@ function CourseView() {
 
 
     const handleStartLesson = (id, firstVideoId) => {
-        navigate(`/videoplayer/${id}/${firstVideoId}`);
+      axios.post(baseURL + `/student/view_status/${firstVideoId}/`,{'id':authentication_user.userid}, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+            navigate(`/videoplayer/${id}/${firstVideoId}`);
+        } else {
+            console.log('Error occurred');
+        }
+    })
+    .catch(error => {
+        console.error('Error occurred:', error);
+    });
+       
     };
 
 
@@ -118,8 +136,6 @@ function CourseView() {
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
         document.body.appendChild(script);
       };
-
-
 
       const showRazorpay = async () => {
         const res = await loadScript();
@@ -195,6 +211,27 @@ useEffect(() => {
     }
   }, [paymentSuccess]);
 
+// -------------------------------------------
+
+const [allVideosWatched, setAllVideosWatched] = useState(false);
+
+    useEffect(() => {
+        const fetchAllVideosWatched = async () => {
+            try {
+                const response = await axios.get(baseURL+`/student/check_all_videos_watched/${id}/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setAllVideosWatched(response.data.all_videos_watched);
+            } catch (error) {
+                console.error('Error fetching all videos watched:', error);
+            }
+        };
+
+        fetchAllVideosWatched();
+    }, [id, token]);
+
 
   return (
 
@@ -239,13 +276,24 @@ useEffect(() => {
                 </li>
             </ol>
 
+            <div>
+              {allVideosWatched ? (
+                 <Link to={`/certificate/${id}`} >
+                 <p className='text-green-800 text-semibold'>Download Certificate.</p>
+                 </Link>
+              ) : (
+                  <p></p>
+              )}
+          </div>
+
             {alreadyPurchased && (
-            <Link to={`/videoplayer/${id}/${course.videos[0]?.id}`}>
+            // <Link to={`/videoplayer/${id}/${course.videos[0]?.id}`}>
             <span className="text-blue-800 text-md font-semibold bg-blue-50 border border-blue-700 px-4 py-2 rounded-lg hover:text-orange-500 hover:border-orange-500 hover:bg-orange-50 cursor-pointer ml-5"
-                >
+                onClick={() => handleStartLesson(id, course.videos[0].id)}>
                 Start Lesson
             </span>
-            </Link>)}
+            // </Link>
+            )}
 
         </nav>
 
