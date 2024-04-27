@@ -16,7 +16,7 @@ import { IoEyeOutline } from "react-icons/io5";
 
 
 function VideoPlayer() {
-    const baseURL = "http://127.0.0.1:8000";
+    const baseURL = "https://skillbridge.store";
     const token = localStorage.getItem('access');
     const authentication_user=useSelector(state=>(state.authentication_user))
     console.log('user',authentication_user);
