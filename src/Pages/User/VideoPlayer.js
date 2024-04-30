@@ -187,7 +187,9 @@ function VideoPlayer() {
     const fetchVideoComments = async () => {
 
         try {
-            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`);
+            const response = await axios.get(baseURL+`/student/video_comments/${vid}/`,{headers: {
+                'authorization': `Bearer ${token}`,  
+              }});
             const comments = response.data;
             setComments(response.data);
             console.log('Comments:', comments);
@@ -262,7 +264,9 @@ const handleReplySubmit = async (event,commentId, replyContent) => {
 
 const fetchReplies = async (commentId) => {
     try {
-        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`);
+        const response = await axios.get(`${baseURL}/student/comments/${commentId}/replies/`,{headers: {
+            'authorization': `Bearer ${token}`,  
+          }});
         setReplies(prevReplies => ({
             ...prevReplies,
             [commentId]: response.data
