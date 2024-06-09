@@ -62,7 +62,7 @@ const UserHeader = () => {
       {/* Top */}
       <nav className="h-7 text-center rounded-md bg-orange-500 m-4">
         <span className="text-white font-bold text-md">
-          Add your navigation content here
+          Get your Courses Now !!!
         </span>
       </nav>
       {/* Navbar */}
