@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { Link, useParams } from 'react-router-dom';
 import msgimg from '../../Images/msg1.jpg'
+import loadingAnimation from '../../Images/loading animation2.json'
 
 function Messages() {
     const baseURL = "https://skillbridge.store";
@@ -22,6 +23,8 @@ function Messages() {
     console.log('auth',userid);
     console.log('orderid',orderId);
 
+
+    
 
 
     useEffect(() => {
@@ -212,7 +215,10 @@ useEffect(() => {
 
 
     return (
+
+    
         <div style={{height:570}} className="flex  antialiased text-gray-800">
+
             <div className="flex flex-row h-full w-full overflow-x-hidden">
 
         {/*-------------------- sidebar start --------------------*/}

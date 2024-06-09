@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import isAuthUser from '../../Utils/isAuthUser';
+import loadingAnimation from '../../Images/loading animation2.json'
+import Lottie from 'react-lottie';
+
 
 
 function UserPrivateRoute({ children }) {
@@ -10,6 +13,17 @@ function UserPrivateRoute({ children }) {
     is_admin: false,
     is_tecaher:false
   });
+
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingAnimation,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }; 
+
 
   const [isLoading, setLoading] = useState(true);
 
@@ -28,8 +42,16 @@ function UserPrivateRoute({ children }) {
     fetchData();
   }, []);
 
+
+
+
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+        <Lottie options={defaultOptions} height={300} width={400} className="p-3 m-2" />
+      </div>
+    );
   }
 
 
